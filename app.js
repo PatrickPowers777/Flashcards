@@ -36,158 +36,50 @@ function ClozeCard(text, close) {
     cloze[2] = new ClozeCard("Sgt Peppers Lonely Hearts Club Band was written by The Beatles", "The Beatles");
     cloze[3] = new ClozeCard("Taxi was directed by Martin Scorcese", "Martin Scorcese");
     cloze[4] = new ClozeCard("World War 2 ended on the year 1945", "1945");
-    cloze[5] = new ClozeCard("The most popular newspaper is the NY Times", "Wall Street Journal");
+    cloze[5] = new ClozeCard("The most popular newspaper is the NY Times", "NY Times");
 function PlayGame(){
 
     inquirer.prompt({
       type: "list",
-      message: "Would you like to play with Basic Cards or Cloze Cards?",
+      message: "Would you like to play with Basic Cards or Cloze Cards? Press Ctrl+C to stop game.",
       choices: ["Basic Cards", "Cloze Cards"],
       name: "cards"
     }).then(function(answers){
       if(answers.cards === "Basic Cards"){
        var choice = Math.floor(Math.random() * ((4-0)+1) + 0);
-       console.log(choice);
-       console.log(cards[choice]);
+       inquirer.prompt({
+        type: "input",
+        name: "question",
+        message: [cards[choice].front]
+       }).then(function(answers){
+        if(answers.question === cards[choice].back){
+          console.log("Correct!");
+          PlayGame();}
+        else if (answers.question !== cards[choice].back) {
+        console.log("Incorrect!");
+        PlayGame();
+       }
+
+       }); 
       }else{
-        var choice = Math.floor(Math.random() * ((4-0)+1) + 0);
-        console.log(cloze[5]);
+        var choice = Math.floor(Math.random() * ((5-0)+1) + 0);
+        inquirer.prompt({
+          type: "input",
+          name: "question",
+          message: [cloze[choice].partial]
+        }).then(function(answers){
+          if(answers.question === cloze[choice].close){
+            console.log("Correct!");
+            PlayGame();
+          } else if(answers.question !== cloze[choice].close){
+            console.log("Incorrect!");
+            PlayGame();
+          }
+        });
       }
 
     });
 
-
-//   for(i = 0; i < cards.length; i++){
-
-//   if(cards <= 5){
-//     inquirer.prompt({
-//       name: "cardOne",
-//       message: card1.front
-//     }).then(function(answers){
-//       if(answers.cardOne === card1.back) {
-//         cards.push[i];
-//         score++;
-//         console.log("Your answer was: " + answers.cardOne);
-//         console.log("The correct answer was: " + card1.back);
-//         console.log("Nice! Your score is now " + score);
-//         PlayGame();
-
-//     } else {
-//       cards.push[i];
-//       score--;
-//       console.log("Sorry! Your score is now " + score);
-//       PlayGame();
-//     }
-
-//     });
-//   } 
-
-//   if(cards>=1 && cards < 5){
-//     inquirer.prompt({
-//       name: "cardTwo",
-//       message: card2.front
-//     }).then(function(answers){
-//       if(answers.cardTwo === card2.back){
-//         cards.push[i];
-//         score++;
-//         console.log("Your answer was: " + answers.cardTwo);
-//         console.log("The correct answer was: " + card2.back);
-//         console.log("Nice! Your score is now: " + score);
-//         PlayGame();
-//       } else {
-//         cards.push[i];
-//         score--;
-//         console.log("Sorry! Your score is now: " + score);
-//         PlayGame();
-//       }
-//     });   
-//   }
-
-//   if(cards>=2 && cards < 5){
-//     inquirer.prompt({
-//       name: "cardTwo",
-//       message: card2.front
-//     }).then(function(answers){
-//       if(answers.cardTwo === card2.back){
-//         responses.push[i];
-//         score++;
-//         cards++;
-//         console.log("Your answer was: " + answers.cardTwo);
-//         console.log("The correct answer was: " + card2.back);
-//         console.log("Nice! Your score is now: " + score);
-//         PlayGame();
-//       } else {
-//         cards.push[i];
-//         console.log("Sorry! Your score is now: " + score);
-//         PlayGame();
-//       }
-//     });
-//   }
-
-//   if(cards>=3 && cards < 5){
-//     inquirer.prompt({
-//       name: "cardThree",
-//       message: card3.front
-//     }).then(function(answers){
-//       if(answers.cardThree === card3.back){
-//         cards.push[i];
-//         score++;
-//         console.log("Your answer was: " + answers.cardTwo);
-//         console.log("The correct answer was: " + card2.back);
-//         console.log("Nice! Your score is now: " + score);
-//         PlayGame();
-//       } else {
-//         cards.push[i];
-//         score--;
-//         console.log("Sorry! Your score is now: " + score);
-//         PlayGame();
-//       }
-//     });
-//   }
-
-//   if(cards>=4 && cards < 5){
-//     inquirer.prompt({
-//       name: "cardFour",
-//       message: card4.front
-//     }).then(function(answers){
-//       if(answers.cardFour === card4.back){
-//         cards.push[i];
-//         score++;
-//         console.log("Your answer was: " + answers.cardTwo);
-//         console.log("The correct answer was: " + card2.back);
-//         console.log("Nice! Your score is now: " + score);
-//         PlayGame();
-//       } else {
-//         cards.push[i];
-//         score--;
-//         console.log("Sorry! Your score is now: " + score);
-//         PlayGame();
-//       }
-//     });  
-//   }
-
-//     if(cards === 5){
-//     inquirer.prompt({
-//       name: "cardFive",
-//       message: card5.front
-//     }).then(function(answers){
-//       if(answers.cardFive === card5.back){
-//         cards.push[i];
-//         score++;
-//         console.log("Your answer was: " + answers.cardTwo);
-//         console.log("The correct answer was: " + card2.back);
-//         console.log("Nice! Your score is now: " + score);
-//         PlayGame();
-//       } else {
-//         cards.push[i];
-//         score++;
-//         console.log("Sorry! Your score is now: " + score);
-//         PlayGame();
-//       }
-//     });
-//   }
-// }
-// }
 }
 
 PlayGame();
